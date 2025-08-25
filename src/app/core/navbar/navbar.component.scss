@@ -1,0 +1,35 @@
+.nav {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.link {
+    margin-left: 8px;
+}
+
+.subnav {
+    padding: 8px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.user {
+    margin-right: 8px;
+}

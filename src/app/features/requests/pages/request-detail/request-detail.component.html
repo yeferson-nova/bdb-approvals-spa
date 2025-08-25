@@ -1,0 +1,18 @@
+<div *ngIf="data as d">
+    <h2>{{ d.title }}</h2>
+    <p>{{ d.description }}</p>
+    <p><b>Solicitante:</b> {{ d.requesterUpn }}</p>
+    <p><b>Aprobador:</b> {{ d.approverUpn }}</p>
+    <p><b>Estado:</b> {{ d.status }}</p>
+    <div class="actions">
+        <input [(ngModel)]="comment" placeholder="Comentario" />
+        <button (click)="approve()" [disabled]="d.status!=='PENDING'">Aprobar</button>
+        <button (click)="reject()" [disabled]="d.status!=='PENDING'">Rechazar</button>
+    </div>
+    <h3>Historial</h3>
+    <ul>
+        <li *ngFor="let h of history">
+            {{ h.when | date:'short' }} — {{ h.action }} por {{ h.by }} — {{ h.comment }}
+        </li>
+    </ul>
+</div>

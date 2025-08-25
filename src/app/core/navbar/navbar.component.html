@@ -1,0 +1,17 @@
+<header class="nav">
+    <div class="brand">Bdb Approvals</div>
+    <div class="spacer"></div>
+
+    <ng-container *ngIf="account$ | async as a; else anon">
+        <span class="user">{{ displayName(a) }}</span>
+        <button class="link" (click)="logout()">Salir</button>
+    </ng-container>
+
+    <ng-template #anon>
+        <button class="link" (click)="login()">Iniciar sesión</button>
+    </ng-template>
+</header>
+
+<nav class="subnav" *ngIf="account$ | async">
+    <a class="btn" routerLink="/requests/new">Nueva solicitud</a>
+</nav>

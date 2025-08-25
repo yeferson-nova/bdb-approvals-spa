@@ -1,0 +1,13 @@
+<form [formGroup]="form" (submit)="submit()">
+    <label>Título <input formControlName="title" /></label>
+    <label>Descripción <textarea formControlName="description"></textarea></label>
+    <label>Aprobador UPN <input formControlName="approverUpn" /></label>
+    <label>Tipo
+        <select formControlName="type">
+            <option value="GENERIC">GENERIC</option>
+            <option value="DEPLOY">DEPLOY</option>
+            <option value="ACCESS">ACCESS</option>
+        </select>
+    </label>
+    <button type="submit" [disabled]="saving || form.invalid" (click)="submit()">Crear</button>
+</form>

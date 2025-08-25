@@ -71,7 +71,8 @@
               "buildTarget": "bdb-approvals-spa:build:production"
             },
             "development": {
-              "buildTarget": "bdb-approvals-spa:build:development"
+              "buildTarget": "bdb-approvals-spa:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
