@@ -1,8 +1,9 @@
+// src/app/features/requests/pages/request-new/request-new.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, NonNullableFormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { RequestsService, Request } from '../../services/requests.service';
+import { RequestsService, CreateRequestPayload } from '../../services/requests.service';
 import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class RequestNewComponent {
   form: FormGroup;
   saving = false;
 
-  constructor(private fb: FormBuilder, private svc: RequestsService, private router: Router, private auth: AuthService) {
+  constructor(private fb: NonNullableFormBuilder, private svc: RequestsService, private router: Router, private auth: AuthService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -30,11 +31,10 @@ export class RequestNewComponent {
     if (!this.auth.upn) { this.auth.login(); return; }
     this.saving = true;
     const { title, description, approverUpn, type } = this.form.getRawValue();
-    const payload: Partial<Request> = { title: title!, description: description!, approverUpn: approverUpn!, type: type!, requesterUpn: this.auth.upn! };
-    console.log('[RequestNew] submit', payload);
+    const payload: CreateRequestPayload = { title, description, approverUpn, type, requesterUpn: this.auth.upn! };
     this.svc.create(payload).subscribe({
-      next: r => { console.log('[RequestNew] created', r); const id = (r as any)?.id; if (id) this.router.navigate(['/requests', id]); else this.router.navigate(['/requests']); },
-      error: err => { this.saving = false; console.error('[RequestNew] error', err); alert(`No se pudo crear la solicitud. Código: ${err?.status ?? 'N/A'}`); }
+      next: r => { const id = (r as any)?.id; if (id) this.router.navigate(['/requests', id]); else this.router.navigate(['/requests']); },
+      error: err => { this.saving = false; alert(`No se pudo crear la solicitud. Código: ${err?.status ?? 'N/A'}`); }
     });
   }
 }

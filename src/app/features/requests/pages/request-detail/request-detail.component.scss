@@ -1,0 +1,41 @@
+:host {
+    display: block;
+}
+
+.page-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.detail-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.id {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-weight: 500;
+    color: #334;
+}

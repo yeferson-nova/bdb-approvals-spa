@@ -1,44 +1,59 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { RequestsService, Request } from '../../services/requests.service';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
   selector: 'app-requests-list',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, DatePipe, FormsModule],
   templateUrl: './requests-list.component.html',
   styleUrls: ['./requests-list.component.scss']
 })
-export class RequestsListComponent implements OnInit, OnDestroy {
+export class RequestsListComponent {
   rows: Request[] = [];
   loading = false;
   isAuthed = false;
-  sub?: Subscription;
+  q = '';
 
-  constructor(private svc: RequestsService, private router: Router, private auth: AuthService) { }
-
-  ngOnInit(): void {
-    console.log('[RequestsList] ngOnInit');
-    this.sub = this.auth.account$.subscribe(acc => {
-      this.isAuthed = !!acc;
-      console.log('[RequestsList] account$', acc?.username, 'isAuthed', this.isAuthed);
-      if (this.isAuthed) this.load(); else { this.rows = []; this.loading = false; }
+  constructor(private svc: RequestsService, private router: Router, public auth: AuthService) {
+    this.auth.account$.subscribe(a => {
+      this.isAuthed = !!a;
+      if (a) this.load();
+      else this.rows = [];
     });
   }
 
-  ngOnDestroy(): void { this.sub?.unsubscribe(); }
+  get filtered(): Request[] {
+    const text = this.q.trim().toLowerCase();
+    if (!text) return this.rows;
+    const terms = text.split(/\s+/).filter(Boolean);
+    return this.rows.filter(r => {
+      const hay = [
+        r.title || '',
+        r.status || '',
+        r.approverUpn || ''
+      ].join(' ').toLowerCase();
+      return terms.every(t => hay.includes(t));
+    });
+  }
 
-  private load() {
+  load() {
+    if (!this.auth.upn) return;
     this.loading = true;
-    console.log('[RequestsList] load start');
-    this.svc.list().subscribe({
-      next: d => { this.rows = d; this.loading = false; console.log('[RequestsList] load ok', d.length); },
-      error: e => { this.loading = false; console.error('[RequestsList] load error', e); }
+    this.svc.listMine(this.auth.upn).subscribe({
+      next: r => {
+        const me = (this.auth.upn || '').toLowerCase();
+        this.rows = (r || []).filter(x => (x.requesterUpn || '').toLowerCase() === me);
+        this.loading = false;
+      },
+      error: _ => { this.rows = []; this.loading = false; }
     });
   }
 
-  open(id: string) { console.log('[RequestsList] open', id); this.router.navigate(['/requests', id]); }
+  open(id: string) {
+    this.router.navigate(['/requests', id]);
+  }
 }

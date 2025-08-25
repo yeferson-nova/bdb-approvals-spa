@@ -1,17 +1,31 @@
-<header class="nav">
-    <div class="brand">Bdb Approvals</div>
-    <div class="spacer"></div>
-
-    <ng-container *ngIf="account$ | async as a; else anon">
-        <span class="user">{{ displayName(a) }}</span>
-        <button class="link" (click)="logout()">Salir</button>
-    </ng-container>
-
-    <ng-template #anon>
-        <button class="link" (click)="login()">Iniciar sesión</button>
-    </ng-template>
+<header class="navbar">
+    <div class="container nav-inner">
+        <div class="brand">
+            <img class="logo"
+                src="https://www.bancodebogota.com/wps/wcm/connect/banco-de-bogota/185fc6ee-7266-42e9-8d7a-561c8ca8e8b0/logo-bogota-azul.png?MOD=AJPERES&CACHEID=185fc6ee-7266-42e9-8d7a-561c8ca8e8b0"
+                alt="Banco de Bogotá">
+            <span>Gestión de Aprobaciones - Banco de Bogotá</span>
+        </div>
+        <nav class="nav-actions">
+            <ng-container *ngIf="account$ | async as a; else anon">
+                <a class="link" routerLink="/approvals" title="Solicitudes para aprobar">
+                    <span class="inbox">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 8l9 6 9-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <rect x="3" y="5" width="18" height="14" rx="2" ry="2" stroke="currentColor"
+                                stroke-width="2" fill="none" />
+                        </svg>
+                        <span class="badge" *ngIf="(approvalsCount$ | async) as c">{{ c }}</span>
+                    </span>
+                </a>
+                <a class="link" routerLink="/requests/new">Nueva solicitud</a>
+                <span class="user">{{ displayName(a) }}</span>
+                <button class="btn btn-secondary" (click)="logout()">Salir</button>
+            </ng-container>
+            <ng-template #anon>
+                <button class="btn btn-primary" (click)="login()">Iniciar sesión</button>
+            </ng-template>
+        </nav>
+    </div>
 </header>
-
-<nav class="subnav" *ngIf="account$ | async">
-    <a class="btn" routerLink="/requests/new">Nueva solicitud</a>
-</nav>

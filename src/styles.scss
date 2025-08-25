@@ -1,1 +1,198 @@
+:root {
+    --bdb-blue: #0043A9;
+    --bdb-blue-800: #003a90;
+    --bdb-yellow: #F9B818;
+    --bdb-red: #EC3030;
+    --bg: #ffffff;
+    --bg-muted: #f5f6f7;
+    --text: #111827;
+    --text-muted: #4b5563;
+    --border: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.page-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 16px 0;
+}
+
+.btn {
+    appearance: none;
+    border: 1px solid transparent;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease;
+}
+
+.btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--bdb-blue);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--bdb-blue-800);
+}
+
+.btn-secondary {
+    background: #fff;
+    color: var(--bdb-blue);
+    border-color: var(--bdb-blue);
+}
+
+.btn-secondary:hover {
+    background: #f2f5ff;
+}
+
+.btn-danger {
+    background: var(--bdb-red);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    filter: brightness(.95);
+}
+
+.link {
+    color: var(--bdb-blue);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(17, 24, 39, .04);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    text-align: left;
+    background: var(--bg-muted);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.table tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.table tbody tr:hover {
+    background: #fafafa;
+    cursor: pointer;
+}
+
+.form {
+    display: grid;
+    gap: 12px;
+    max-width: 680px;
+}
+
+.form-row {
+    display: grid;
+    gap: 10px;
+}
+
+.form label {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--bdb-blue);
+    box-shadow: 0 0 0 3px rgba(0, 67, 169, .12);
+}
+
+.helper {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: var(--bg-muted);
+    color: var(--text);
+}
+
+.badge.pending {
+    background: #fff7ed;
+    color: #9a3412;
+    border: 1px solid #fed7aa;
+}
+
+.badge.approved {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.badge.rejected {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
 /* You can add global styles to this file, and also import other style files */

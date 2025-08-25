@@ -1,0 +1,54 @@
+:host {
+    display: block;
+}
+
+.page-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.pending {
+    background: #FFF3E0;
+    color: #B26A00;
+}
+
+.col-actions {
+    width: 140px;
+}
+
+.row-link {
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.row-click {
+    cursor: pointer;
+}
+
+.row-click:hover {
+    background: #f5f7fa;
+}

@@ -1,13 +1,36 @@
-<form [formGroup]="form" (submit)="submit()">
-    <label>Título <input formControlName="title" /></label>
-    <label>Descripción <textarea formControlName="description"></textarea></label>
-    <label>Aprobador UPN <input formControlName="approverUpn" /></label>
-    <label>Tipo
-        <select formControlName="type">
-            <option value="GENERIC">GENERIC</option>
-            <option value="DEPLOY">DEPLOY</option>
-            <option value="ACCESS">ACCESS</option>
-        </select>
-    </label>
-    <button type="submit" [disabled]="saving || form.invalid" (click)="submit()">Crear</button>
-</form>
+<div class="container">
+    <h1 class="page-title">Nueva solicitud</h1>
+
+    <form class="card form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-row">
+            <label for="title">Título</label>
+            <input id="title" class="input" formControlName="title" placeholder="Título de la solicitud" title="Título">
+        </div>
+
+        <div class="form-row">
+            <label for="description">Descripción</label>
+            <textarea id="description" class="textarea" rows="3" formControlName="description"
+                placeholder="Describe brevemente el motivo" title="Descripción" aria-describedby="desc-help"></textarea>
+            <span id="desc-help" class="helper">Explica brevemente el motivo.</span>
+        </div>
+
+        <div class="form-row">
+            <label for="approverUpn">Aprobador UPN</label>
+            <input id="approverUpn" class="input" formControlName="approverUpn" placeholder="usuario@dominio.com"
+                title="Aprobador UPN">
+        </div>
+
+        <div class="form-row">
+            <label for="type">Tipo</label>
+            <select id="type" class="select" formControlName="type" title="Tipo de solicitud">
+                <option value="GENERIC">GENERIC</option>
+                <option value="DEPLOY">DEPLOY</option>
+            </select>
+        </div>
+
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <button class="btn btn-secondary" type="button" routerLink="/requests">Cancelar</button>
+            <button class="btn btn-primary" type="submit" [disabled]="saving || form.invalid">Crear</button>
+        </div>
+    </form>
+</div>

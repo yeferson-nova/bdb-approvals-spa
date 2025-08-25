@@ -1,41 +1,35 @@
 <div class="container">
-    <h2>Solicitudes</h2>
+    <h1 class="page-title">Solicitudes para aprobar</h1>
 
-    <div class="toolbar">
-        <input class="input search" type="search" [(ngModel)]="q" placeholder="Buscar por título, estado o aprobador">
-    </div>
+    <button class="btn btn-secondary" routerLink="/requests">Volver</button>
 
-    <div class="card" *ngIf="isAuthed && !loading && filtered.length===0">
-        <p>No hay coincidencias para “{{ q }}”.</p>
-    </div>
-
-    <div class="card" *ngIf="isAuthed && !loading && rows.length===0 && !q">
-        <p>No hay solicitudes para mostrar.</p>
-    </div>
-
-    <table class="table" *ngIf="isAuthed && !loading && filtered.length">
+    <table class="table" *ngIf="isAuthed && !loading && rows.length">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Título</th>
+                <th>Solicitante</th>
                 <th>Estado</th>
-                <th>Aprobador</th>
                 <th>Creado</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let r of filtered" (click)="open(r.id!)" style="cursor:pointer">
+            <tr *ngFor="let r of rows" class="row-click" (click)="open(r.id!)">
                 <td>{{ r.id }}</td>
                 <td>{{ r.title }}</td>
+                <td>{{ r.requesterUpn }}</td>
                 <td>
                     <span class="badge"
                         [ngClass]="{'pending': r.status==='PENDING','approved': r.status==='APPROVED','rejected': r.status==='REJECTED'}">
                         {{ r.status }}
                     </span>
                 </td>
-                <td>{{ r.approverUpn }}</td>
                 <td>{{ r.createdAt | date:'short' }}</td>
             </tr>
         </tbody>
     </table>
+
+    <div class="card" *ngIf="isAuthed && !loading && rows.length===0">
+        <p>No tienes solicitudes pendientes por aprobar.</p>
+    </div>
 </div>

@@ -41,21 +41,16 @@ function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
 
 function initializeMsalAndHandleRedirect(instance: IPublicClientApplication) {
   return async () => {
-    console.log('[MSAL] initialize start');
     await instance.initialize();
-    console.log('[MSAL] initialize done');
     const result = await instance.handleRedirectPromise();
-    console.log('[MSAL] handleRedirectPromise result', !!result, result?.account?.username);
+
     if (result?.account) {
       instance.setActiveAccount(result.account);
-      console.log('[MSAL] setActiveAccount from result', result.account.username);
     } else {
       const acc = instance.getActiveAccount() ?? instance.getAllAccounts()[0];
       if (acc) {
         instance.setActiveAccount(acc);
-        console.log('[MSAL] setActiveAccount from cache', acc.username);
       } else {
-        console.log('[MSAL] no active account');
       }
     }
   };
